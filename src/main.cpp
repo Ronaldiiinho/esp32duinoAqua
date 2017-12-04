@@ -13,10 +13,18 @@
 #endif
 #include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
 
+#include "mqtt.h"
+
 
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(9600);
+
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, HIGH);    // turn the LED off by making the voltage LOW
+    delay(1000);                       // wait for a second
+
+    init_mqtt();
 
     //WiFiManager
     //Local intialization. Once its business is done, there is no need to keep it around
@@ -41,6 +49,12 @@ void setup() {
 }
 
 void loop() {
+
+    mqtt_loop();
     // put your main code here, to run repeatedly:
+    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(100);                       // wait for a second
+    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+    delay(100); 
     
 }
